@@ -1,4 +1,4 @@
- class Foo
+class Foo
   def name: () -> String
   def aa: () -> String
 end

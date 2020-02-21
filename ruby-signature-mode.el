@@ -25,11 +25,8 @@
 ;; Usage:
 ;;
 ;;   (require 'ruby-signature-mode)
-;;   (add-to-list 'auto-mode-alist '("\\.rbs\\'" . ruby-signature-mode))
 
 ;;; Code:
-
-;;(defconst ruby-font-lock-keyword-beg-re "\\(?:^\\|[^.@$:]\\|\\.\\.\\)")
 
 (require 'ruby-mode)
 
@@ -39,12 +36,16 @@
 (defconst ruby-signature-mode--font-lock-keywords
   '(("\\(class\\|def\\|end\\)" . font-lock-keyword-face)))
 
+;;;###autoload
 (define-derived-mode ruby-signature-mode prog-mode "RBS"
-  "Major mode for editing Ruby::Signature code."
+  "Major mode for Ruby::Signature."
   ;; (setq-local indent-line-function 'ruby-indent-line)
   (setq-local comment-start "# ")
   (setq-local comment-end "")
   (setq-local font-lock-defaults '((ruby-signature-mode--font-lock-keywords))))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.rbs\\'" . ruby-signature-mode))
 
 (provide 'ruby-signature-mode)
 ;;; ruby-signature-mode.el ends here
