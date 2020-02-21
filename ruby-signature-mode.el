@@ -30,18 +30,72 @@
 
 (defconst ruby-signature-mode--keywords
   '("alias"
+    "attr_accessor"
+    "attr_reader"
+    "attr_writer"
     "class"
     "def"
     "end"
-    "self"
-    "self?"))
+    "extend"
+    "extension"
+    "include"
+    "interface"
+    "module"
+    "prepend"
+    "private"
+    "public"
+    "singleton"
+    "type"))
 
-(defconst ruby-signature-mode--keyword-regexp
-  (concat "\\<" (regexp-opt ruby-signature-mode--keywords t) "\\>"))
+(defconst ruby-signature-mode--keywords-regexp
+  (regexp-opt ruby-signature-mode--keywords 'symbols))
+
+(defconst ruby-signature-mode--base-types
+  '("bool"
+    "false"
+    "instance"
+    "nil"
+    "self"
+    "top"
+    "true"
+    "untyped"
+    "void"))
+
+(defconst ruby-signature-mode--base-types-regexp
+  (regexp-opt ruby-signature-mode--base-types 'symbols))
+
+(defconst ruby-signature-mode--builtin-types
+  '("Array"
+    "BasicObject"
+    "Exception"
+    "FalseClass"
+    "Float"
+    "Hash"
+    "Integer"
+    "Kernel"
+    "NilClass"
+    "Numeric"
+    "Object"
+    "Regexp"
+    "RuntimeError"
+    "StandardError"
+    "String"
+    "TrueClass"))
+
+(defconst ruby-signature-mode--builtin-types-regexp
+  (regexp-opt ruby-signature-mode--builtin-types 'symbols))
+
+(defconst ruby-signature-mode--declarations-regexp
+  (concat (regexp-opt '("class" "extension" "interface" "module" "type") 'symbols) " +\\([^ ]+\\)"))
 
 (defconst ruby-signature-mode--font-lock-keywords
-  `((,ruby-signature-mode--keyword-regexp 1 font-lock-keyword-face)
-    ("\\bdef +\\(self\\??\\.\\)?\\([^ ]+\\):" 2 font-lock-function-name-face)))
+  `((,ruby-signature-mode--keywords-regexp 1 font-lock-keyword-face)
+    (,ruby-signature-mode--base-types-regexp 1 font-lock-builtin-face)
+    (,ruby-signature-mode--builtin-types-regexp 1 font-lock-type-face)
+    (,ruby-signature-mode--declarations-regexp 2 font-lock-type-face)
+    ("def +\\(self\\??\\.\\)?\\([^ ]+\\):" 2 font-lock-function-name-face)
+    ("alias +\\([^ ]+\\)" 1 font-lock-function-name-face)
+    ("#.*$" 0 font-lock-comment-face t)))
 
 ;;;###autoload
 (define-derived-mode ruby-signature-mode prog-mode "RBS"

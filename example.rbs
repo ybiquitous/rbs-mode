@@ -1,8 +1,22 @@
-class Foo
-  def self.create: () -> instance
+# Foo
+class Foo # bar
+  include Mod1
+  extend Mod2
+  prepend Mod3
+
+  attr_reader foo
+  attr_writer foo
+  attr_accessor foo
+
+  def self.create: (name: aaa) -> instance
   def self?.exist: () -> bool
   def name: () -> String
+  def key?: () -> bool
   alias id name
+
+  public
+
+  private
 end
 
 class Foo
