@@ -1,0 +1,10 @@
+class Foo
+  def self.create: () -> instance
+  def self?.exist: () -> bool
+  def name: () -> String
+  alias id name
+end
+
+class Foo
+  def aa: () -> String
+end
