@@ -4,9 +4,9 @@ class Foo[U, T] # bar
   extend Mod2
   prepend Mod3
 
-  attr_reader foo
-  attr_writer foo
-  attr_accessor foo, bar
+  attr_reader foo: Integer
+  attr_writer bar: bool?
+  attr_accessor baz: 1 | 2
 
   def self.create: (name: Hash, *untyped args) -> instance
   def self?.exist: () -> bool
