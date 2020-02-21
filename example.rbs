@@ -1,5 +1,5 @@
 # Foo
-class Foo # bar
+class Foo[U, T] # bar
   include Mod1
   extend Mod2
   prepend Mod3
@@ -21,4 +21,12 @@ class Foo # bar
   private
 end
 
+module Foo::Bar < Baz
+end
+
 type Foo::bar = "string" | 100 | true | false | nil
+
+Foo::Bar: String
+::YES: String
+
+$LOAD_PATH: Array[String]
