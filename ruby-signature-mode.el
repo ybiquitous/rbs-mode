@@ -28,13 +28,20 @@
 
 ;;; Code:
 
-(require 'ruby-mode)
+(defconst ruby-signature-mode--keywords
+  '("alias"
+    "class"
+    "def"
+    "end"
+    "self"
+    "self?"))
 
 (defconst ruby-signature-mode--keyword-regexp
-  (regexp-opt '("class" "def" "end") t))
+  (concat "\\<" (regexp-opt ruby-signature-mode--keywords t) "\\>"))
 
 (defconst ruby-signature-mode--font-lock-keywords
-  '(("\\(class\\|def\\|end\\)" . font-lock-keyword-face)))
+  `((,ruby-signature-mode--keyword-regexp 1 font-lock-keyword-face)
+    ("\\bdef +\\(self\\??\\.\\)?\\([^ ]+\\):" 2 font-lock-function-name-face)))
 
 ;;;###autoload
 (define-derived-mode ruby-signature-mode prog-mode "RBS"
@@ -42,7 +49,7 @@
   ;; (setq-local indent-line-function 'ruby-indent-line)
   (setq-local comment-start "# ")
   (setq-local comment-end "")
-  (setq-local font-lock-defaults '((ruby-signature-mode--font-lock-keywords))))
+  (setq-local font-lock-defaults '(ruby-signature-mode--font-lock-keywords)))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.rbs\\'" . ruby-signature-mode))
