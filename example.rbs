@@ -6,19 +6,19 @@ class Foo # bar
 
   attr_reader foo
   attr_writer foo
-  attr_accessor foo
+  attr_accessor foo, bar
 
-  def self.create: (name: aaa) -> instance
+  def self.create: (name: Hash, *untyped args) -> instance
   def self?.exist: () -> bool
   def name: () -> String
   def key?: () -> bool
+          | super
   alias id name
+  alias self.id self.name
 
   public
 
   private
 end
 
-class Foo
-  def aa: () -> String
-end
+type Foo::bar = "string" | 100 | true | false | nil
