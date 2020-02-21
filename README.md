@@ -1,3 +1,3 @@
-# A mode for Ruby::Signature
+# ruby-signature-mode
 
-This is a mode for [Ruby::Signature](https://github.com/ruby/ruby-signature).
+This is a Emacs major mode for editing [Ruby::Signature](https://github.com/ruby/ruby-signature) code.

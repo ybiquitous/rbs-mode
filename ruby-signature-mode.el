@@ -1,9 +1,11 @@
-;;; ruby-signature-mode.el --- A mode for Ruby::Signature  -*- lexical-binding: t; -*-
+;;; ruby-signature-mode.el --- Major mode for Ruby::Signature  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Masafumi Koba
 
 ;; Author: Masafumi Koba <koba@ybiquitous-mbp.local>
 ;; Keywords: languages
+;; URL: https://github.com/ybiquitous/ruby-signature-mode
+;; Package-Requires: ((emacs "24.3"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -19,12 +21,30 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-
 ;;
+;; Usage:
+;;
+;;   (require 'ruby-signature-mode)
+;;   (add-to-list 'auto-mode-alist '("\\.rbs\\'" . ruby-signature-mode))
 
 ;;; Code:
 
+;;(defconst ruby-font-lock-keyword-beg-re "\\(?:^\\|[^.@$:]\\|\\.\\.\\)")
 
+(require 'ruby-mode)
+
+(defconst ruby-signature-mode--keyword-regexp
+  (regexp-opt '("class" "def" "end") t))
+
+(defconst ruby-signature-mode--font-lock-keywords
+  '(("\\(class\\|def\\|end\\)" . font-lock-keyword-face)))
+
+(define-derived-mode ruby-signature-mode prog-mode "RBS"
+  "Major mode for editing Ruby::Signature code."
+  ;; (setq-local indent-line-function 'ruby-indent-line)
+  (setq-local comment-start "# ")
+  (setq-local comment-end "")
+  (setq-local font-lock-defaults '((ruby-signature-mode--font-lock-keywords))))
 
 (provide 'ruby-signature-mode)
 ;;; ruby-signature-mode.el ends here

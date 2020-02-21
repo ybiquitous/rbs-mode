@@ -1,0 +1,8 @@
+ class Foo
+  def name: () -> String
+  def aa: () -> String
+end
+
+class Foo
+  def aa: () -> String
+end
