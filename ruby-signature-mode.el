@@ -27,6 +27,7 @@
 ;;   (require 'ruby-signature-mode)
 
 ;;; Code:
+(require 'rx)
 
 (defconst ruby-signature-mode--keywords
   '("alias"
@@ -118,32 +119,34 @@
     "UnboundMethod"))
 
 (defconst ruby-signature-mode--declarations-regexp
-  (concat
-    (regexp-opt '("class" "extension" "interface" "module" "type") 'words)
-    " +\\([^ \\[]+\\)"))
+  (rx (or "class" "extension" "interface" "module" "type") (1+ space) (group (1+ (any alnum "_" ":")))))
+
+(defconst ruby-signature-mode--inheritance-regexp
+  (rx (1+ space) (any "<" ":") (1+ space) (group (1+ (any alnum "_" ":")))))
 
 (defconst ruby-signature-mode--method-name-regexp
-  "def +\\(self\\??\\.\\)?\\([^ ]+\\):")
+  (rx word-boundary "def" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?"))) ":"))
 
 (defconst ruby-signature-mode--alias-name-regexp
-  "alias +\\(self\\??\\.\\)?\\([^ ]+\\)")
+  (rx word-boundary "alias" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?"))) (1+ space)))
 
 (defconst ruby-signature-mode--constant-regexp
   ;; Include a global variable
-  "^\\(\\(::\\|\\$\\)?[A-Z][A-Za-z0-9_:]+\\): ")
+  (rx (0+ space) (group (opt "$") (1+ (any alnum "_" ":"))) ":" (1+ space)))
 
 (defconst ruby-signature-mode--comment-regexp
-  "#.*$")
+  (rx "#" (0+ not-newline) eol))
 
 (defconst ruby-signature-mode--font-lock-keywords
-  `((,(regexp-opt ruby-signature-mode--keywords 'symbols) 1 font-lock-keyword-face)
-    (,ruby-signature-mode--constant-regexp 1 font-lock-constant-face)
-    (,ruby-signature-mode--declarations-regexp 2 font-lock-type-face)
-    (,ruby-signature-mode--method-name-regexp 2 font-lock-function-name-face)
-    (,ruby-signature-mode--alias-name-regexp 2 font-lock-function-name-face)
-    (,(regexp-opt ruby-signature-mode--base-types 'words) 1 font-lock-builtin-face)
-    (,(regexp-opt ruby-signature-mode--builtin-types 'words) 1 font-lock-type-face)
-    (,ruby-signature-mode--comment-regexp 0 font-lock-comment-face t)))
+  `((,(regexp-opt ruby-signature-mode--keywords 'symbols) (1 font-lock-keyword-face))
+    (,ruby-signature-mode--constant-regexp (1 font-lock-constant-face))
+    (,ruby-signature-mode--declarations-regexp (1 font-lock-type-face))
+    (,ruby-signature-mode--inheritance-regexp (1 font-lock-type-face))
+    (,ruby-signature-mode--method-name-regexp (1 font-lock-function-name-face))
+    (,ruby-signature-mode--alias-name-regexp (1 font-lock-function-name-face))
+    (,(regexp-opt ruby-signature-mode--base-types 'words) (1 font-lock-builtin-face))
+    (,(regexp-opt ruby-signature-mode--builtin-types 'words) (1 font-lock-type-face))
+    (,ruby-signature-mode--comment-regexp (0 font-lock-comment-face t))))
 
 ;;;###autoload
 (define-derived-mode ruby-signature-mode prog-mode "RBS"
