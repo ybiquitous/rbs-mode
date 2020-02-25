@@ -2,6 +2,8 @@
 
 This is a Emacs major mode for editing [Ruby::Signature](https://github.com/ruby/ruby-signature) code.
 
+![Screenshot](screenshot.png)
+
 ## Getting started
 
 1. Download the file where you prefer, e.g. `~/.emacs.d/elisp`.
