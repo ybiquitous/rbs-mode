@@ -19,4 +19,4 @@ curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/master/rbs-mode.el
 (require 'rbs-mode)
 ```
 
-3. Open your signature file and turn on `rbs-mode`, e.g. [example.rbs](example.rbs).
+3. Open your signature file and <kbd>M-x rbs-mode</kbd>, e.g. [example.rbs](example.rbs).
