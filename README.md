@@ -19,14 +19,4 @@ curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/master/rbs-mode.el
 (require 'rbs-mode)
 ```
 
-3. Open your signature file and turn on `rbs-mode`.
-
-```
-class Greeting
-  attr_reader name: String
-
-  def initialize: (name: String) -> untyped
-
-  def hi: () -> String
-end
-```
+3. Open your signature file and turn on `rbs-mode`, e.g. [example.rbs](example.rbs).
