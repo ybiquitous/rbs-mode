@@ -1,6 +1,6 @@
-# ruby-signature-mode
+# rbs-mode
 
-This is a Emacs major mode for editing [Ruby::Signature](https://github.com/ruby/ruby-signature) code.
+This is a Emacs major mode for editing [Ruby type signatures](https://github.com/ruby/rbs).
 
 ![Screenshot](screenshot.png)
 
@@ -9,18 +9,18 @@ This is a Emacs major mode for editing [Ruby::Signature](https://github.com/ruby
 1. Download the file where you prefer, e.g. `~/.emacs.d/elisp`.
 
 ```shell
-curl -L https://raw.githubusercontent.com/ybiquitous/ruby-signature-mode/master/ruby-signature-mode.el \
-     -o ~/.emacs.d/elisp/ruby-signature-mode.el
+curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/master/rbs-mode.el \
+     -o ~/.emacs.d/elisp/rbs-mode.el
 ```
 
-2. Setup `ruby-signature-mode` on your Emacs.
+2. Setup `rbs-mode` on your Emacs.
 
 ```elisp
 (add-to-list 'load-path "~/.emacs.d/elisp")
-(require 'ruby-signature-mode)
+(require 'rbs-mode)
 ```
 
-3. Open your signature file and confirm `ruby-signature-mode` is enabled.
+3. Open your signature file and confirm `rbs-mode` is enabled.
 
 ```
 class Greeting

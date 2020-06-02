@@ -1,10 +1,10 @@
-;;; ruby-signature-mode.el --- Major mode for Ruby::Signature  -*- lexical-binding: t; -*-
+;;; rbs-mode.el --- Major mode for Ruby::Signature  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Masafumi Koba
 
-;; Author: Masafumi Koba <koba@ybiquitous-mbp.local>
+;; Author: Masafumi Koba
 ;; Keywords: languages
-;; URL: https://github.com/ybiquitous/ruby-signature-mode
+;; URL: https://github.com/ybiquitous/rbs-mode
 ;; Package-Requires: ((emacs "24.3"))
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -24,12 +24,12 @@
 ;;
 ;; Usage:
 ;;
-;;   (require 'ruby-signature-mode)
+;;   (require 'rbs-mode)
 
 ;;; Code:
 (require 'rx)
 
-(defconst ruby-signature-mode--keywords
+(defconst rbs-mode--keywords
   '("alias"
     "attr_accessor"
     "attr_reader"
@@ -49,7 +49,7 @@
     "super"
     "type"))
 
-(defconst ruby-signature-mode--base-types
+(defconst rbs-mode--base-types
   '("bool"
     "bot"
     "false"
@@ -61,7 +61,7 @@
     "untyped"
     "void"))
 
-(defconst ruby-signature-mode--builtin-types
+(defconst rbs-mode--builtin-types
   '("ArgumentError"
     "Array"
     "BasicObject"
@@ -118,46 +118,46 @@
     "TrueClass"
     "UnboundMethod"))
 
-(defconst ruby-signature-mode--declarations-regexp
+(defconst rbs-mode--declarations-regexp
   (rx (or "class" "extension" "interface" "module" "type") (1+ space) (group (1+ (any alnum "_" ":")))))
 
-(defconst ruby-signature-mode--inheritance-regexp
+(defconst rbs-mode--inheritance-regexp
   (rx (1+ space) (any "<" ":") (1+ space) (group (1+ (any alnum "_" ":")))))
 
-(defconst ruby-signature-mode--method-name-regexp
+(defconst rbs-mode--method-name-regexp
   (rx word-boundary "def" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?"))) ":"))
 
-(defconst ruby-signature-mode--alias-name-regexp
+(defconst rbs-mode--alias-name-regexp
   (rx word-boundary "alias" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?"))) (1+ space)))
 
-(defconst ruby-signature-mode--constant-regexp
+(defconst rbs-mode--constant-regexp
   ;; Include a global variable
   (rx (0+ space) (group (opt "$") (1+ (any alnum "_" ":"))) ":" (1+ space)))
 
-(defconst ruby-signature-mode--comment-regexp
+(defconst rbs-mode--comment-regexp
   (rx "#" (0+ not-newline) eol))
 
-(defconst ruby-signature-mode--font-lock-keywords
-  `((,(regexp-opt ruby-signature-mode--keywords 'symbols) (1 font-lock-keyword-face))
-    (,ruby-signature-mode--constant-regexp (1 font-lock-constant-face))
-    (,ruby-signature-mode--declarations-regexp (1 font-lock-type-face))
-    (,ruby-signature-mode--inheritance-regexp (1 font-lock-type-face))
-    (,ruby-signature-mode--method-name-regexp (1 font-lock-function-name-face))
-    (,ruby-signature-mode--alias-name-regexp (1 font-lock-function-name-face))
-    (,(regexp-opt ruby-signature-mode--base-types 'words) (1 font-lock-builtin-face))
-    (,(regexp-opt ruby-signature-mode--builtin-types 'words) (1 font-lock-type-face))
-    (,ruby-signature-mode--comment-regexp (0 font-lock-comment-face t))))
+(defconst rbs-mode--font-lock-keywords
+  `((,(regexp-opt rbs-mode--keywords 'symbols) (1 font-lock-keyword-face))
+    (,rbs-mode--constant-regexp (1 font-lock-constant-face))
+    (,rbs-mode--declarations-regexp (1 font-lock-type-face))
+    (,rbs-mode--inheritance-regexp (1 font-lock-type-face))
+    (,rbs-mode--method-name-regexp (1 font-lock-function-name-face))
+    (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face))
+    (,(regexp-opt rbs-mode--base-types 'words) (1 font-lock-builtin-face))
+    (,(regexp-opt rbs-mode--builtin-types 'words) (1 font-lock-type-face))
+    (,rbs-mode--comment-regexp (0 font-lock-comment-face t))))
 
 ;;;###autoload
-(define-derived-mode ruby-signature-mode prog-mode "RBS"
+(define-derived-mode rbs-mode prog-mode "RBS"
   "Major mode for Ruby::Signature."
   ;; (setq-local indent-line-function 'ruby-indent-line)
   (setq-local comment-start "# ")
   (setq-local comment-end "")
-  (setq-local font-lock-defaults '(ruby-signature-mode--font-lock-keywords)))
+  (setq-local font-lock-defaults '(rbs-mode--font-lock-keywords)))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.rbs\\'" . ruby-signature-mode))
+(add-to-list 'auto-mode-alist '("\\.rbs\\'" . rbs-mode))
 
-(provide 'ruby-signature-mode)
-;;; ruby-signature-mode.el ends here
+(provide 'rbs-mode)
+;;; rbs-mode.el ends here
