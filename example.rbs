@@ -19,7 +19,9 @@ class Foo[U, T] # bar
   def name: () -> String
   def key?: () -> bool
           | super
+  def write!: () -> void
   alias id name
+  alias flush! write!
   alias self.id self.name
 
   public
