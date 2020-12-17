@@ -125,10 +125,10 @@
   (rx (1+ space) (any "<" ":") (1+ space) (group (1+ (any alnum "_" ":")))))
 
 (defconst rbs-mode--method-name-regexp
-  (rx word-boundary "def" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!"))) ":"))
+  (rx word-boundary "def" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!" "=" "~" "+" "-" "*" "/" "%" "<" ">" "&" "|" "^"))) ":"))
 
 (defconst rbs-mode--alias-name-regexp
-  (rx word-boundary "alias" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!"))) (1+ space)))
+  (rx word-boundary "alias" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!" "=" "~" "+" "-" "*" "/" "%" "<" ">" "&" "|" "^"))) (1+ space)))
 
 (defconst rbs-mode--constant-regexp
   ;; Include a global variable

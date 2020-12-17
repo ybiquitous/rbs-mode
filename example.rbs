@@ -20,6 +20,9 @@ class Foo[U, T] # bar
   def key?: () -> bool
           | super
   def write!: () -> void
+  def +: () -> Integer
+  def -: () -> bool
+  def %: () -> bool
   alias id name
   alias flush! write!
   alias self.id self.name
