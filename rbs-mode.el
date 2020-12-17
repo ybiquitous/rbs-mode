@@ -51,7 +51,9 @@
 
 (defconst rbs-mode--base-types
   '("bool"
+    "boolish"
     "bot"
+    "class"
     "false"
     "instance"
     "nil"
