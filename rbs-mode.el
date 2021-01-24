@@ -29,125 +29,194 @@
 ;;; Code:
 (require 'rx)
 
-(defconst rbs-mode--keywords
-  '("alias"
-    "attr_accessor"
-    "attr_reader"
-    "attr_writer"
-    "class"
-    "def"
-    "end"
-    "extend"
-    "extension"
-    "include"
-    "interface"
-    "module"
-    "prepend"
-    "private"
-    "public"
-    "singleton"
-    "super"
-    "type"))
+(defconst rbs-mode--keyword-regexp
+  (regexp-opt
+    '("alias"
+      "attr_accessor"
+      "attr_reader"
+      "attr_writer"
+      "class"
+      "def"
+      "end"
+      "extend"
+      "extension"
+      "include"
+      "interface"
+      "module"
+      "prepend"
+      "private"
+      "public"
+      "singleton"
+      "super"
+      "type")
+    'symbols))
 
-(defconst rbs-mode--builtin-types
-  '("bool"
-    "boolish"
-    "bot"
-    "class"
-    "false"
-    "instance"
-    "nil"
-    "self"
-    "top"
-    "true"
-    "untyped"
-    "void"))
+(defconst rbs-mode--builtin-type-regexp
+  (rx
+    (or symbol-start "?" "*")
+    (group
+      (or
+        "bool"
+        "bool?"
+        "boolish"
+        "bot"
+        "class"
+        "class?"
+        "encoding"
+        "encoding?"
+        "exception"
+        "exception?"
+        "false"
+        "false?"
+        "instance"
+        "instance?"
+        "int"
+        "int?"
+        "io"
+        "io?"
+        "nil"
+        "real"
+        "real?"
+        "self"
+        "self?"
+        "string"
+        "string?"
+        "top"
+        "true"
+        "true?"
+        "untyped"
+        "void"))))
 
-(defconst rbs-mode--core-types
-  '("ArgumentError"
-    "Array"
-    "BasicObject"
-    "BigDecimal"
-    "Binding"
-    "Class"
-    "Comparable"
-    "Complex"
-    "Dir"
-    "ENV"
-    "Encoding"
-    "EncodingError"
-    "Enumerable"
-    "Enumerator"
-    "Errno"
-    "Exception"
-    "FalseClass"
-    "File"
-    "Float"
-    "Hash"
-    "IndexError"
-    "Integer"
-    "IO"
-    "Kernel"
-    "Logger"
-    "Method"
-    "Module"
-    "NameError"
-    "NilClass"
-    "Numeric"
-    "Object"
-    "Pathname"
-    "Proc"
-    "Process"
-    "Process::Status"
-    "Random"
-    "Random::Formatter"
-    "Range"
-    "RangeError"
-    "Rational"
-    "Regexp"
-    "RuntimeError"
-    "ScriptError"
-    "SignalException"
-    "StandardError"
-    "String"
-    "Struct"
-    "Symbol"
-    "SystemCallError"
-    "Thread"
-    "ThreadGroup"
-    "Time"
-    "TracePoint"
-    "TrueClass"
-    "UnboundMethod"))
+(defconst rbs-mode--core-type-regexp
+  (rx
+    (or space line-start "?" "*" "(" "[")
+    (group
+      (optional "::")
+      (or
+        "ArgumentError"
+        "Array"
+        "BasicObject"
+        "BigDecimal"
+        "Binding"
+        "Class"
+        "Comparable"
+        "Complex"
+        "Dir"
+        "ENV"
+        "Encoding"
+        "EncodingError"
+        "Enumerable"
+        "Enumerator"
+        "Errno"
+        "Exception"
+        "FalseClass"
+        "File"
+        "Float"
+        "Hash"
+        "IndexError"
+        "Integer"
+        "IO"
+        "Kernel"
+        "Logger"
+        "Method"
+        "Module"
+        "NameError"
+        "NilClass"
+        "Numeric"
+        "Object"
+        "Pathname"
+        "Proc"
+        "Process"
+        "Process::Status"
+        "Random"
+        "Random::Formatter"
+        "Range"
+        "RangeError"
+        "Rational"
+        "Regexp"
+        "RuntimeError"
+        "ScriptError"
+        "SignalException"
+        "StandardError"
+        "String"
+        "Struct"
+        "Symbol"
+        "SystemCallError"
+        "Thread"
+        "ThreadGroup"
+        "Time"
+        "TracePoint"
+        "TrueClass"
+        "UnboundMethod"
+        "_Each"
+        "_Exception"
+        "_Reader"
+        "_Writer"
+        "_ToAry"
+        "_ToHash"
+        "_ToInt"
+        "_ToI"
+        "_ToInt"
+        "_ToIO"
+        "_ToPath"
+        "_ToProc"
+        "_ToS"
+        "_ToStr"))))
 
-(defconst rbs-mode--declarations-regexp
-  (rx (or "class" "extension" "interface" "module" "type") (1+ space) (group (1+ (any alnum "_" ":")))))
+(defconst rbs-mode--type-definition-regexp
+  (rx
+    symbol-start
+    (or "class" "extension" "interface" "module" "type")
+    (1+ space)
+    (group (1+ (not (any space "["))))))
 
 (defconst rbs-mode--inheritance-regexp
-  (rx (1+ space) (any "<" ":") (1+ space) (group (1+ (any alnum "_" ":")))))
+  (rx
+    (1+ space)
+    (or "<" ":")
+    (1+ space)
+    (group (1+ (not (any space "["))))))
 
 (defconst rbs-mode--method-name-regexp
-  (rx word-boundary "def" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!" "=" "~" "+" "-" "*" "/" "%" "<" ">" "&" "|" "^"))) ":"))
+  (rx
+    symbol-start
+    "def"
+    (1+ space)
+    (optional (or "self" "self?") ".")
+    (group (1+ (not (any ":" space))))
+    ":"))
 
 (defconst rbs-mode--alias-name-regexp
-  (rx word-boundary "alias" (1+ space) (opt "self" (opt "?") ".") (group (1+ (any alnum "_" "?" "!" "=" "~" "+" "-" "*" "/" "%" "<" ">" "&" "|" "^"))) (1+ space)))
+  (rx
+    symbol-start
+    "alias"
+    (1+ space)
+    (optional (or "self" "self?") ".")
+    (group (1+ (not space)))
+    (1+ space)
+    (optional (or "self" "self?") ".")
+    (group (1+ (not space)))))
 
+;; Include global variables
 (defconst rbs-mode--constant-regexp
-  ;; Include a global variable
-  (rx (0+ space) (group (opt "$") (1+ (any alnum "_" ":"))) ":" (1+ space)))
+  (rx
+    (or space line-start)
+    (group (or "$" ":" upper) (1+ (not space)))
+    ":"
+    (1+ space)))
 
 (defconst rbs-mode--comment-regexp
-  (rx "#" (0+ not-newline) eol))
+  (rx "#" (0+ not-newline) line-end))
 
 (defconst rbs-mode--font-lock-keywords
-  `((,(regexp-opt rbs-mode--keywords 'symbols) (1 font-lock-keyword-face))
-    (,rbs-mode--constant-regexp (1 font-lock-constant-face))
-    (,rbs-mode--declarations-regexp (1 font-lock-type-face))
+  `((,rbs-mode--keyword-regexp (1 font-lock-keyword-face))
+    (,rbs-mode--type-definition-regexp (1 font-lock-type-face))
     (,rbs-mode--inheritance-regexp (1 font-lock-type-face))
     (,rbs-mode--method-name-regexp (1 font-lock-function-name-face))
-    (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face))
-    (,(regexp-opt rbs-mode--builtin-types 'words) (1 font-lock-builtin-face))
-    (,(regexp-opt rbs-mode--core-types 'words) (1 font-lock-type-face))
+    (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face) (2 font-lock-function-name-face))
+    (,rbs-mode--constant-regexp (1 font-lock-constant-face))
+    (,rbs-mode--builtin-type-regexp (1 font-lock-builtin-face))
+    (,rbs-mode--core-type-regexp (1 font-lock-type-face))
     (,rbs-mode--comment-regexp (0 font-lock-comment-face t))))
 
 ;;;###autoload
