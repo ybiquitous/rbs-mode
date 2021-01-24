@@ -49,7 +49,7 @@
     "super"
     "type"))
 
-(defconst rbs-mode--base-types
+(defconst rbs-mode--builtin-types
   '("bool"
     "boolish"
     "bot"
@@ -63,7 +63,7 @@
     "untyped"
     "void"))
 
-(defconst rbs-mode--builtin-types
+(defconst rbs-mode--core-types
   '("ArgumentError"
     "Array"
     "BasicObject"
@@ -146,8 +146,8 @@
     (,rbs-mode--inheritance-regexp (1 font-lock-type-face))
     (,rbs-mode--method-name-regexp (1 font-lock-function-name-face))
     (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face))
-    (,(regexp-opt rbs-mode--base-types 'words) (1 font-lock-builtin-face))
-    (,(regexp-opt rbs-mode--builtin-types 'words) (1 font-lock-type-face))
+    (,(regexp-opt rbs-mode--builtin-types 'words) (1 font-lock-builtin-face))
+    (,(regexp-opt rbs-mode--core-types 'words) (1 font-lock-type-face))
     (,rbs-mode--comment-regexp (0 font-lock-comment-face t))))
 
 ;;;###autoload
