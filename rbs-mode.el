@@ -205,9 +205,6 @@
     ":"
     (1+ space)))
 
-(defconst rbs-mode--comment-regexp
-  (rx "#" (0+ not-newline) line-end))
-
 (defconst rbs-mode--font-lock-keywords
   `((,rbs-mode--keyword-regexp (1 font-lock-keyword-face))
     (,rbs-mode--type-definition-regexp (1 font-lock-type-face))
@@ -216,14 +213,23 @@
     (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face) (2 font-lock-function-name-face))
     (,rbs-mode--constant-regexp (1 font-lock-constant-face))
     (,rbs-mode--builtin-type-regexp (1 font-lock-builtin-face))
-    (,rbs-mode--core-type-regexp (1 font-lock-type-face))
-    (,rbs-mode--comment-regexp (0 font-lock-comment-face t))))
+    (,rbs-mode--core-type-regexp (1 font-lock-type-face))))
+
+(defconst rbs-mode--syntax-table
+  (let* ((table (make-syntax-table)))
+    (modify-syntax-entry ?# "<" table)
+    (modify-syntax-entry ?\n ">" table)
+    (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?\' "\"" table)
+    (modify-syntax-entry ?\` "\"" table)
+    table))
 
 ;;;###autoload
 (define-derived-mode rbs-mode prog-mode "RBS"
   "Major mode for Ruby::Signature."
   ;; (setq-local indent-line-function 'ruby-indent-line)
-  (setq-local comment-start "# ")
+  :syntax-table rbs-mode--syntax-table
+  (setq-local comment-start "#")
   (setq-local comment-end "")
   (setq-local font-lock-defaults '(rbs-mode--font-lock-keywords)))
 
