@@ -5,14 +5,14 @@ class My::Abc_123
 end
 
 # Foo
-class Foo[U, T] # bar
+class Foo[unchecked in U, out T] # bar
   include Mod1
   extend Mod2
   prepend Mod3
 
   attr_reader foo: Integer
   attr_writer bar: bool?
-  attr_accessor baz: 1 | 2
+  attr_accessor baz: 1 | 2 | any
 
   def self.create: (name: Hash, *untyped args) -> instance
   def self?.exist: () -> bool

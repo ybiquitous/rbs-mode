@@ -40,9 +40,12 @@
       "end"
       "extend"
       "extension"
+      "in"
       "include"
       "interface"
       "module"
+      "unchecked"
+      "out"
       "prepend"
       "private"
       "public"
@@ -56,6 +59,7 @@
     (or symbol-start "?" "*")
     (group
       (or
+        "any"
         "bool"
         "bool?"
         "boolish"
