@@ -10,6 +10,9 @@ class Foo[unchecked in U, out T] # bar
   extend Mod2
   prepend Mod3
 
+  CONST: "aaa"
+  @ivar: Array[String]
+
   attr_reader foo: Integer
   attr_writer bar: bool?
   attr_accessor baz: 1 | 2 | any

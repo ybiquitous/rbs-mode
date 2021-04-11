@@ -209,6 +209,13 @@
     ":"
     (1+ space)))
 
+(defconst rbs-mode--instance-variable-regexp
+  (rx
+    (or space line-start)
+    (group "@" (1+ (not space)))
+    ":"
+    (1+ space)))
+
 (defconst rbs-mode--font-lock-keywords
   `((,rbs-mode--keyword-regexp (1 font-lock-keyword-face))
     (,rbs-mode--type-definition-regexp (1 font-lock-type-face))
@@ -216,6 +223,7 @@
     (,rbs-mode--method-name-regexp (1 font-lock-function-name-face))
     (,rbs-mode--alias-name-regexp (1 font-lock-function-name-face) (2 font-lock-function-name-face))
     (,rbs-mode--constant-regexp (1 font-lock-constant-face))
+    (,rbs-mode--instance-variable-regexp (1 font-lock-variable-name-face))
     (,rbs-mode--builtin-type-regexp (1 font-lock-builtin-face))
     (,rbs-mode--core-type-regexp (1 font-lock-type-face))))
 
