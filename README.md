@@ -6,10 +6,10 @@ This is a Emacs major mode for editing [Ruby type signatures](https://github.com
 
 ## Getting started
 
-1. Download the elisp file as follows:
+1. Download this package's elisp file as follows:
 
 ```shell
-curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/master/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
+curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
 ```
 
 2. Setup `rbs-mode` on your Emacs as follows:
