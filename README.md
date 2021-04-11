@@ -1,6 +1,6 @@
 # rbs-mode
 
-This is a Emacs major mode for editing [Ruby type signatures](https://github.com/ruby/rbs).
+This is a Emacs major mode for editing [Ruby type signatures](https://github.com/ruby/rbs) (RBS).
 
 ![Screenshot](screenshot.png)
 
