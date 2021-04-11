@@ -19,7 +19,7 @@ curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -
 (require 'rbs-mode)
 ```
 
-3. Open your signature file and <kbd>M-x rbs-mode</kbd>, e.g. [example.rbs](example.rbs).
+3. Open a RBS file, e.g. [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs).
 
 ## Contributing
 
