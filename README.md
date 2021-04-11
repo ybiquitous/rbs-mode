@@ -20,3 +20,7 @@ curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -
 ```
 
 3. Open your signature file and <kbd>M-x rbs-mode</kbd>, e.g. [example.rbs](example.rbs).
+
+## Contributing
+
+Welcome to your contribution! Feel free to open an issue or pull request.
