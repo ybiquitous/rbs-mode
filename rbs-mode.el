@@ -1,11 +1,12 @@
-;;; rbs-mode.el --- Major mode for Ruby::Signature  -*- lexical-binding: t; -*-
+;;; rbs-mode.el --- A major mode for RBS -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Masafumi Koba
 
 ;; Author: Masafumi Koba
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/ybiquitous/rbs-mode
-;; Package-Requires: ((emacs "24.3"))
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -21,10 +22,9 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;
-;; Usage:
-;;
-;;   (require 'rbs-mode)
+
+;; `rbs-mode' is a major mode for RBS (a type signature language for Ruby).
+;; See also <https://github.com/ruby/rbs> for details about RBS.
 
 ;;; Code:
 (require 'rx)
