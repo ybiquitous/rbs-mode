@@ -242,7 +242,9 @@
   ;; (setq-local indent-line-function 'ruby-indent-line)
   :syntax-table rbs-mode--syntax-table
   (setq-local comment-start "#")
+  (setq-local comment-start-skip "#+[ \t]*")
   (setq-local comment-end "")
+  (setq-local comment-use-syntax t)
   (setq-local font-lock-defaults '(rbs-mode--font-lock-keywords)))
 
 ;;;###autoload
