@@ -2,6 +2,8 @@
 
 ## Next version
 
+- Add simple indentation [#5](https://github.com/ybiquitous/rbs-mode/pull/5)
+
 ## 0.2.0 (2021-04-19)
 
 - Enable `comment-use-syntax` [#4](https://github.com/ybiquitous/rbs-mode/pull/4)
