@@ -2,6 +2,8 @@
 
 ## Next version
 
+## 0.3.0 (2021-04-26)
+
 - Add simple indentation [#5](https://github.com/ybiquitous/rbs-mode/pull/5)
 
 ## 0.2.0 (2021-04-19)
