@@ -29,6 +29,50 @@
 ;;; Code:
 (require 'rx)
 
+(defgroup rbs nil
+  "Major mode for editing RBS code."
+  :group 'languages
+  :prefix "rbs-")
+
+(defcustom rbs-indent-level 2
+  "Indentation of RBS statements."
+  :group 'rbs
+  :type 'integer
+  :safe 'integerp)
+
+(defun rbs-indent-line ()
+  "Correct the indentation of the current RBS line."
+  (indent-line-to (rbs-calculate-indent-level)))
+
+(defun rbs-calculate-indent-level ()
+  "Return the proper indentation level of the current line."
+  (save-excursion
+    (let* ((prev-level (rbs-previous-indent-level))
+           (block-start-line-re (concat "^[[:space:]]*" (regexp-opt '("class" "module" "interface") 'symbols)))
+           (block-end-line-re (concat "^[[:space:]]*" (regexp-opt '("end") 'symbols))))
+      (cond
+        ((string-match-p block-start-line-re (rbs-previous-line))
+          (+ prev-level rbs-indent-level))
+        ((string-match-p block-end-line-re (rbs-current-line))
+          (max 0 (- prev-level rbs-indent-level)))
+        (t prev-level)))))
+
+(defun rbs-current-line ()
+  "Return the current line."
+  (string-trim-right (thing-at-point 'line t)))
+
+(defun rbs-previous-line ()
+  "Return the previous line."
+  (save-excursion
+    (forward-line -1)
+    (string-trim-right (thing-at-point 'line t))))
+
+(defun rbs-previous-indent-level ()
+  "Return the previous indent level."
+  (save-excursion
+    (forward-line -1)
+    (current-indentation)))
+
 (defconst rbs-mode--keyword-regexp
   (regexp-opt
     '("alias"
@@ -238,14 +282,14 @@
 
 ;;;###autoload
 (define-derived-mode rbs-mode prog-mode "RBS"
-  "Major mode for Ruby::Signature."
-  ;; (setq-local indent-line-function 'ruby-indent-line)
+  "Major mode for editing RBS code."
   :syntax-table rbs-mode--syntax-table
   (setq-local comment-start "#")
   (setq-local comment-start-skip "#+[ \t]*")
   (setq-local comment-end "")
   (setq-local comment-use-syntax t)
-  (setq-local font-lock-defaults '(rbs-mode--font-lock-keywords)))
+  (setq-local font-lock-defaults '(rbs-mode--font-lock-keywords))
+  (setq-local indent-line-function #'rbs-indent-line))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.rbs\\'" . rbs-mode))
