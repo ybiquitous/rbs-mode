@@ -10,13 +10,13 @@ This is a Emacs major mode for editing [RBS](https://github.com/ruby/rbs) (a typ
 
 You can install the package from [MELPA](https://melpa.org/#/getting-started) (recommeded), or download it directly as below:
 
-1. Download it, e.g.
+1. Download the package, e.g.
 
    ```shell
    curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
    ```
 
-2. Edit your `~/.emacs.d/init.el`:
+2. Edit your `~/.emacs.d/init.el`, e.g.
 
     ```elisp
     (add-to-list 'load-path "~/.emacs.d/elisp")
