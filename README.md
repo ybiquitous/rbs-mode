@@ -26,7 +26,7 @@ You can install the package from [MELPA](https://melpa.org/#/getting-started) (r
 When the installation is completed, let's try to open a RBS file!
 
 1. Download RBS files via `git clone https://github.com/ruby/rbs.git`
-2. Open a file: <kbd>C-x C-f</kbd> [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs),
+2. Open a RBS file, e.g. <kbd>C-x C-f</kbd> [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs)
 
 ## Contributing
 
