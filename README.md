@@ -1,3 +1,5 @@
+[![MELPA](https://melpa.org/packages/rbs-mode-badge.svg)](https://melpa.org/#/rbs-mode)
+
 # rbs-mode
 
 This is a Emacs major mode for editing [RBS](https://github.com/ruby/rbs) (a type signature language for Ruby).
@@ -6,20 +8,25 @@ This is a Emacs major mode for editing [RBS](https://github.com/ruby/rbs) (a typ
 
 ## Getting started
 
-1. Download this package's elisp file as follows:
+You can install the package from [MELPA](https://melpa.org/#/getting-started) (recommeded), or download it directly as below:
 
-```shell
-curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
-```
+1. Download it, e.g.
 
-2. Setup `rbs-mode` on your Emacs as follows:
+   ```shell
+   curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
+   ```
 
-```elisp
-(add-to-list 'load-path "~/.emacs.d/elisp")
-(require 'rbs-mode)
-```
+2. Edit your `~/.emacs.d/init.el`:
 
-3. Open a RBS file, e.g. [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs), [`core/array.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/array.rbs), etc.
+    ```elisp
+    (add-to-list 'load-path "~/.emacs.d/elisp")
+    (require 'rbs-mode)
+    ```
+
+When the installation is completed, let's try to open a RBS file!
+
+1. Download RBS files via `git clone https://github.com/ruby/rbs.git`
+2. Open a file: <kbd>C-x C-f</kbd> [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs),
 
 ## Contributing
 
