@@ -8,7 +8,7 @@ This is a Emacs major mode for editing [RBS](https://github.com/ruby/rbs) (a typ
 
 ## Getting started
 
-You can install the package from [MELPA](https://melpa.org/#/getting-started), or download it directly as below:
+You can install the package from [MELPA](https://melpa.org/#/getting-started) (recommeded), or download it directly as below:
 
 1. Download it, e.g.
 
