@@ -1,4 +1,5 @@
 [![MELPA](https://melpa.org/packages/rbs-mode-badge.svg)](https://melpa.org/#/rbs-mode)
+[![MELPA Stable](https://stable.melpa.org/packages/rbs-mode-badge.svg)](https://stable.melpa.org/#/rbs-mode)
 
 # rbs-mode
 
