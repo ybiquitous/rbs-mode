@@ -9,25 +9,13 @@ This is a Emacs major mode for editing [RBS](https://github.com/ruby/rbs) (a typ
 
 ## Getting started
 
-You can install the package from [MELPA](https://melpa.org/#/getting-started) (recommeded), or download it directly as below:
+You can install this package via `use-package` as below:
 
-1. Download the package, e.g.
+```elisp
+(use-package rbs-mode)
+```
 
-   ```shell
-   curl -L https://raw.githubusercontent.com/ybiquitous/rbs-mode/HEAD/rbs-mode.el -o ~/.emacs.d/elisp/rbs-mode.el
-   ```
-
-2. Edit your `~/.emacs.d/init.el`, e.g.
-
-    ```elisp
-    (add-to-list 'load-path "~/.emacs.d/elisp")
-    (require 'rbs-mode)
-    ```
-
-When the installation is completed, let's try to open a RBS file!
-
-1. Download RBS files via `git clone https://github.com/ruby/rbs.git`
-2. Open a RBS file, e.g. <kbd>C-x C-f</kbd> [`core/object.rbs`](https://github.com/ruby/rbs/blob/42c4f166589e6ec60ea82824118ce2b6e9235fe8/core/object.rbs)
+After setup, let's open a RBS file. You can download several RBS files from the [ruby/rbs](https://github.com/ruby/rbs) repository.
 
 ## Contributing
 
