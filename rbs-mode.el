@@ -29,6 +29,9 @@
 ;;; Code:
 (require 'rx)
 
+(when (version< "29" emacs-version)
+  (require 'treesit))
+
 (defgroup rbs nil
   "Major mode for editing RBS code."
   :group 'languages
@@ -73,30 +76,31 @@
     (forward-line -1)
     (current-indentation)))
 
+(defconst rbs-mode--keywords
+  '("alias"
+    "attr_accessor"
+    "attr_reader"
+    "attr_writer"
+    "class"
+    "def"
+    "end"
+    "extend"
+    "extension"
+    "in"
+    "include"
+    "interface"
+    "module"
+    "unchecked"
+    "out"
+    "prepend"
+    "private"
+    "public"
+    "singleton"
+    "super"
+    "type"))
+
 (defconst rbs-mode--keyword-regexp
-  (regexp-opt
-    '("alias"
-      "attr_accessor"
-      "attr_reader"
-      "attr_writer"
-      "class"
-      "def"
-      "end"
-      "extend"
-      "extension"
-      "in"
-      "include"
-      "interface"
-      "module"
-      "unchecked"
-      "out"
-      "prepend"
-      "private"
-      "public"
-      "singleton"
-      "super"
-      "type")
-    'symbols))
+  (regexp-opt rbs-mode--keywords 'symbols))
 
 (defconst rbs-mode--builtin-type-regexp
   (rx
@@ -282,7 +286,8 @@
 
 ;;;###autoload
 (define-derived-mode rbs-mode prog-mode "RBS"
-  "Major mode for editing RBS code."
+  "Major mode for editing RBS."
+  :group 'rbs
   :syntax-table rbs-mode--syntax-table
   (setq-local comment-start "#")
   (setq-local comment-start-skip "#+[ \t]*")
@@ -293,6 +298,58 @@
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.rbs\\'" . rbs-mode))
+
+;; -- rbs-ts-mode -- ;;
+
+(defconst rbs-ts-mode--font-lock-settings
+  (treesit-font-lock-rules
+    :language 'rbs
+    :feature 'comment
+    '((comment) @font-lock-comment-face)
+
+    :language 'rbs
+    :feature 'type-declaration
+    '((class (name) @font-lock-type-face))
+
+    :language 'rbs
+    :feature 'keyword
+    `([,@rbs-mode--keywords] @font-lock-keyword-face)))
+
+(defconst rbs-ts-mode--method-regex
+  (rx string-start
+    (or "method" "singleton_method")
+    string-end))
+
+;;;###autoload
+(define-derived-mode rbs-ts-mode prog-mode "RBS"
+  "Major mode for editing RBS, powered by tree-sitter."
+  :group 'rbs
+  :syntax-table rbs-mode--syntax-table
+
+  (unless (treesit-language-available-p 'rbs)
+    (let ((treesit-language-source-alist '((rbs "https://github.com/joker1007/tree-sitter-rbs"))))
+      (treesit-install-language-grammar 'rbs)))
+
+  (unless (treesit-ready-p 'rbs)
+    (error "Tree-sitter for RBS is unavailable"))
+
+  (treesit-parser-create 'rbs)
+
+  (setq-local comment-start "#")
+  (setq-local comment-start-skip "#+[ \t]*")
+  (setq-local comment-end "")
+
+  (setq-local treesit-font-lock-feature-list
+    '((comment type-declaration)
+      (keyword)))
+
+  (setq-local treesit-font-lock-settings rbs-ts-mode--font-lock-settings)
+
+  (setq-local treesit-defun-type-regexp rbs-ts-mode--method-regex)
+
+  (treesit-major-mode-setup)
+
+  (add-to-list 'auto-mode-alist '("\\.rbs\\'" . rbs-ts-mode)))
 
 (provide 'rbs-mode)
 ;;; rbs-mode.el ends here
