@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          echo "See the [changelog](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/CHANGELOG.md) for details." >> notes.md
+          echo "See also the [changelog](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/CHANGELOG.md) for details." >> notes.md
 
           gh release create "${GITHUB_REF_NAME}" --notes-file=notes.md --draft
         env:
