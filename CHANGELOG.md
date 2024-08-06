@@ -23,8 +23,8 @@
 
 The first release.
 
-[#13]: https://github.com/ybiquitous/rbs-mode/pull/13
-[#5]: https://github.com/ybiquitous/rbs-mode/pull/5
 [#4]: https://github.com/ybiquitous/rbs-mode/pull/4
+[#5]: https://github.com/ybiquitous/rbs-mode/pull/5
+[#13]: https://github.com/ybiquitous/rbs-mode/pull/13
 
 [@gemmaro]: https://github.com/gemmaro
