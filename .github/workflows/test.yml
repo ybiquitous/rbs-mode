@@ -25,3 +25,9 @@ jobs:
         with:
           version: ${{ matrix.emacs-version }}
       - uses: leotaku/elisp-check@6a1fc6b11ae66dda13859f8b3474a36dfe3ef225
+        with:
+          file: rbs-mode.el
+      - uses: leotaku/elisp-check@6a1fc6b11ae66dda13859f8b3474a36dfe3ef225
+        with:
+          check: ert
+          file: rbs-mode-test.el

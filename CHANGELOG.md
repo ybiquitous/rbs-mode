@@ -2,6 +2,9 @@
 
 ## Next version
 
+- Fix the regular expression for core types.  `StringScanner` is now ignored as a core type rather
+  than `String` plus `Scanner`, for instance.
+
 ## 0.3.1 (2021-04-30)
 
 - Update the incorrect `Version` field.

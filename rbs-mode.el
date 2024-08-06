@@ -209,7 +209,8 @@
         "_ToPath"
         "_ToProc"
         "_ToS"
-        "_ToStr"))))
+        "_ToStr"))
+    word-end))
 
 (defconst rbs-mode--type-definition-regexp
   (rx
