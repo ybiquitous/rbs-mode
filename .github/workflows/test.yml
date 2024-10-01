@@ -21,7 +21,7 @@ jobs:
           - 29.4
     steps:
       - uses: actions/checkout@v4
-      - uses: purcell/setup-emacs@b2aa076508504d3794cc561c18f3fd7f110d9c2d
+      - uses: purcell/setup-emacs@92ece5b58c04d4c154ca49b58413b5373bfa83d8
         with:
           version: ${{ matrix.emacs-version }}
       - uses: leotaku/elisp-check@6a1fc6b11ae66dda13859f8b3474a36dfe3ef225
