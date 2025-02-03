@@ -24,10 +24,10 @@ jobs:
       - uses: purcell/setup-emacs@8b415d39876e1f55baeadbe408cc708e34ecb67a
         with:
           version: ${{ matrix.emacs-version }}
-      - uses: leotaku/elisp-check@6a1fc6b11ae66dda13859f8b3474a36dfe3ef225
+      - uses: leotaku/elisp-check@5cb6fbec6531d1abf069ed3fba28986ddf20d710
         with:
           file: rbs-mode.el
-      - uses: leotaku/elisp-check@6a1fc6b11ae66dda13859f8b3474a36dfe3ef225
+      - uses: leotaku/elisp-check@5cb6fbec6531d1abf069ed3fba28986ddf20d710
         with:
           check: ert
           file: rbs-mode-test.el
