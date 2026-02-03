@@ -1,6 +1,6 @@
 # Changelog
 
-## Next version
+## 0.3.3 (2026-02-03)
 
 - Bump required Emacs version from 24.5 to 25.3 ([#31][]).
 
