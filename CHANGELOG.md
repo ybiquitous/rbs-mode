@@ -2,6 +2,8 @@
 
 ## Next version
 
+- Bump required Emacs version from 24.5 to 25.3 ([#31][]).
+
 ## 0.3.2 (2024-08-06)
 
 - Fix the regular expression for core types. `StringScanner` is now ignored as a core type rather
@@ -26,5 +28,6 @@ The first release.
 [#4]: https://github.com/ybiquitous/rbs-mode/pull/4
 [#5]: https://github.com/ybiquitous/rbs-mode/pull/5
 [#13]: https://github.com/ybiquitous/rbs-mode/pull/13
+[#31]: https://github.com/ybiquitous/rbs-mode/pull/31
 
 [@gemmaro]: https://github.com/gemmaro
