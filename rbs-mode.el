@@ -4,7 +4,7 @@
 
 ;; Author: Masafumi Koba
 ;; Version: 0.3.2
-;; Package-Requires: ((emacs "24.5"))
+;; Package-Requires: ((emacs "25.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/ybiquitous/rbs-mode
 
