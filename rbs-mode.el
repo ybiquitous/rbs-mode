@@ -3,7 +3,7 @@
 ;; Copyright (C) 2020  Masafumi Koba
 
 ;; Author: Masafumi Koba
-;; Version: 0.3.2
+;; Version: 0.3.3
 ;; Package-Requires: ((emacs "25.3"))
 ;; Keywords: languages
 ;; URL: https://github.com/ybiquitous/rbs-mode
